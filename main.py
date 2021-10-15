@@ -9,6 +9,7 @@
 import json
 import os
 import glob
+import re
 from levenshtein import levenshtein_ratio_and_distance
 
 #const
@@ -17,6 +18,7 @@ TRANSLATE_SKILL_DESC = 1
 TRANSLATE_COMMON_NAMES = 2
 TRANSLATE_UMA_NAMES = 3
 TRANSLATE_UMA_TITLES = 4
+REORDER_UMA_NAMES_AND_TITLES = 5
 
 #init dictionary and keylist
 effectDict = {}
@@ -122,6 +124,31 @@ def uma_name_patching(myjson, key, keyValue, isRunLeven = False):
             if type(item) in (list, dict):
                 uma_name_patching(item, key, keyValue, isRunLeven)
 
+def reorder_names_and_titles(myjson):
+    if type(myjson) is dict:
+        names_to_reorder = []
+        for jsonkey in myjson.copy():
+            if re.match(r"(.*】)(.*)", jsonkey):
+                # print(jsonkey)
+                temp_strings = re.split(r"(.*】)(.*)", jsonkey)
+                # print(temp_strings[2] + temp_strings[1])
+                if (temp_strings[2] != ""):
+                    new_key = f"{temp_strings[2]}{temp_strings[1]}"
+                    names_to_reorder.append((jsonkey, new_key))
+            elif type(myjson[jsonkey]) in (list, dict):
+                reorder_names_and_titles(myjson[jsonkey])
+                #print(myjson[jsonkey])
+        # print(names_to_reorder)
+        for old_key, new_key in names_to_reorder:
+            # print(f"{old_key} -> {new_key}")
+            myjson[new_key] = myjson[old_key]
+            del myjson[old_key]
+    elif type(myjson) is list:
+        for item in myjson:
+            if type(item) in (list, dict):
+                reorder_names_and_titles(item)
+
+
 # TODO: gonna migrate this too into runPatchData
 def runEffectPatchData(originalFile, temporaryFile, backupFile):
     with open(originalFile, "r+", encoding='utf-8') as f:
@@ -151,11 +178,12 @@ def runPatchData(originalFile, temporaryFile, backupFile, key, patchType):
         elif (patchType == TRANSLATE_UMA_TITLES):
             for umaKeys in umaTitleKeyList:
                 uma_name_patching(currFile, umaKeys, umaTitle[umaKeys])
+        elif (patchType == REORDER_UMA_NAMES_AND_TITLES):
+            reorder_names_and_titles(currFile)
         with open(temporaryFile,"wb") as ff:
             ff.write(json.dumps(currFile, ensure_ascii=False, indent=4).encode('utf8'))
             ff.close()
         f.close()
-        
         try_remove_files('./'+backupFile)
         os.rename(originalFile, backupFile)
         os.rename(temporaryFile, originalFile)
@@ -202,6 +230,9 @@ runPatchData('UmaMusumeLibraryOrigin.json', 'UmaMusumeLibraryOriginTemp.json', '
 runPatchData('UmaMusumeLibrary.json', 'UmaMusumeLibraryTemp.json', 'UmaMusumeLibraryBackup.json', "Effect", TRANSLATE_UMA_TITLES)
 runPatchData('UmaMusumeLibraryModify.json', 'UmaMusumeLibraryModifyTemp.json', 'UmaMusumeLibraryModifyBackup.json', "Effect", TRANSLATE_UMA_TITLES)
 runPatchData('UmaMusumeLibraryOrigin.json', 'UmaMusumeLibraryOriginTemp.json', 'UmaMusumeLibraryOriginBackup.json', "Effect", TRANSLATE_UMA_TITLES)
+runPatchData('UmaMusumeLibrary.json', 'UmaMusumeLibraryTemp.json', 'UmaMusumeLibraryBackup.json', "", REORDER_UMA_NAMES_AND_TITLES)
+runPatchData('UmaMusumeLibraryModify.json', 'UmaMusumeLibraryModifyTemp.json', 'UmaMusumeLibraryModifyBackup.json', "", REORDER_UMA_NAMES_AND_TITLES)
+runPatchData('UmaMusumeLibraryOrigin.json', 'UmaMusumeLibraryOriginTemp.json', 'UmaMusumeLibraryOriginBackup.json', "", REORDER_UMA_NAMES_AND_TITLES)
 print("Part 3 Finished")
 
 runEffectPatchData('UmaMusumeLibrary.json', 'UmaMusumeLibraryTemp.json', 'UmaMusumeLibraryBackup.json')
