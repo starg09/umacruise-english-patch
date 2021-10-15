@@ -29,12 +29,16 @@
             "translation": "Blasting Off ☆ Summer Night"
         },
         {
-            "text": "シューティンスタァ・ルヴュ",
+            "text": "シューティンスタァ・ルヴゥ",
             "translation": "Shooting Star Revue"
         },
         {
             "text": "スターライトビート",
             "translation": "Starlight Beat"
+        },
+        {
+            "text": "エル☆Numero.1",
+            "translation": "El ☆ Numero 1"
         },
         {
             "text": "レッドストライフ",
@@ -183,6 +187,30 @@
         {
             "text": "キング・オブ・エメラルド",
             "translation": "King of Emerald"
+        },
+        {
+            "text": "吉兆・初あらし",
+            "translation": "Good Omen・First Storm"
+        },
+        {
+            "text": "ボーノ☆アラモーダ",
+            "translation": "Bono ☆ Alla Moda"
+        },
+        {
+            "text": "超特急！フルカラー特殊PP",
+            "translation": "Super Express! Full Color Special"
+        },
+        {
+            "text": "Make up Vampire!",
+            "translation": "Make up Vampire!"
+        },
+        {
+            "text": "シフォンリボンマミー",
+            "translation": "Chiffon Ribbon Mummy"
+        },
+        {
+            "text": "プリンセス・オブ・ピンク",
+            "translation": "Princess of Pink"
         }
     ]
 }
