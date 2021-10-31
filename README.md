@@ -1,5 +1,13 @@
 This project is created to patch umacruise with fabulous' english translation
 
+---
+
+## Additional changes from this fork:
+
+* Inverted order in which an Uma's name and title is shown in the app's selector. This breaks auto-detection, but should make life simpler for many (may look into making it optional when running the script)
+
+---
+
 ## Installation
 
 Copy releases file that contains json into UmaLibrary folder inside your umacruise folder.

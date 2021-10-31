@@ -207,6 +207,10 @@
         {
             "originEffect": "追込",
             "effect": "Chaser "
+        },
+        {
+            "originEffect": "作戦・",
+            "effect": "Strategy・"
         }
     ]
 }
