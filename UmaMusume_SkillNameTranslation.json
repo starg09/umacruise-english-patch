@@ -393,18 +393,6 @@
             "translation": "Kokura Racetrack "
         },
         {
-            "text": "根幹距離",
-            "translation": "Core Distance "
-        },
-        {
-            "text": "根幹距離",
-            "translation": "Core Distance "
-        },
-        {
-            "text": "根幹距離",
-            "translation": "Core Distance "
-        },
-        {
             "text": "非根幹距離",
             "translation": "Non-Core Distances "
         },
@@ -415,6 +403,18 @@
         {
             "text": "非根幹距離",
             "translation": "Non-Core Distances "
+        },
+        {
+            "text": "根幹距離",
+            "translation": "Core Distance "
+        },
+        {
+            "text": "根幹距離",
+            "translation": "Core Distance "
+        },
+        {
+            "text": "根幹距離",
+            "translation": "Core Distance "
         },
         {
             "text": "良バ場",
